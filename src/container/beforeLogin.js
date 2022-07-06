@@ -1,8 +1,8 @@
 
 
 const handleClick = () => {
-    let client_id = '1657280234';
-    let redirect_uri = 'https://line-login-starter-20220706-v3.herokuapp.com/callback';
+    let client_id = process.env.CLIENT_ID;
+    let redirect_uri = process.env.REDIRECT_URI;
     let link = 'https://access.line.me/oauth2/v2.1/authorize?';
     link += 'response_type=code';
     link += '&client_id=' + client_id;
@@ -26,14 +26,3 @@ const Login = () => {
 
 
 export default Login
-
-
-// let client_id = '1653311283';
-//                 let redirect_uri = 'https://piedasing.github.io/line-service-demo/';
-//                 let link = 'https://access.line.me/oauth2/v2.1/authorize?';
-//                 link += 'response_type=code';
-//                 link += '&client_id=' + client_id;
-//                 link += '&redirect_uri=' + redirect_uri;
-//                 link += '&state=login';
-//                 link += '&scope=openid%20profile';
-//                 window.location.href = link;

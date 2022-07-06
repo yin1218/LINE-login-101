@@ -3,24 +3,41 @@ import * as React from "react";
 import { useSearchParams } from "react-router-dom";
 
 
+// 
+
 
 const UserInfo = () => {
 
-    let [searchParams, setSearchParams] = useSearchParams();
 
-    // let params = serializeFormQuery(event.target);
-    // setSearchParams(params);
+    // ==== Step 1: Get Code ==== //
     const queryParams = new URLSearchParams(window.location.search)
-    const term = queryParams.get("code")
+    //code 是一次性的！
+    const code = queryParams.get("code")
+
+    // ==== Step 2: Get Access Token === //
+    // const reqBody = {
+    //     grant_type: 'authorization_code',
+    //     code: code,
+    //     redirect_uri: redirectURI,
+    //     client_id: clientID,
+    //     client_secret: clientSecret
+    // };
+    // const reqConfig = {
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded'
+    //     }
+    // }
+
+
+    //get id token from code
+
+    //get profile information from id token
   
 
     return (
         <>
             <h1>After LOGIN page</h1>
             <p>Code is {term}</p>
-            {/* <button
-                onClick={handleClick}
-            >Click here to login</button> */}
         </>
     )
 }
