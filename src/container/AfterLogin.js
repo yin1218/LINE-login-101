@@ -1,6 +1,5 @@
 
 import * as React from "react";
-import { useSearchParams } from "react-router-dom";
 
 
 // 
@@ -18,7 +17,7 @@ const UserInfo = () => {
     // const reqBody = {
     //     grant_type: 'authorization_code',
     //     code: code,
-    //     redirect_uri: redirectURI,
+    //     redirect_uri: process.env.REDIRECT_URI,
     //     client_id: clientID,
     //     client_secret: clientSecret
     // };
@@ -37,7 +36,7 @@ const UserInfo = () => {
     return (
         <>
             <h1>After LOGIN page</h1>
-            <p>Code is {term}</p>
+            <p>Code is {code}</p>
         </>
     )
 }
