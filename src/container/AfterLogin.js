@@ -30,6 +30,8 @@ const UserInfo = () => {
         }
     }
 
+    console.log(reqBody)
+
     axios
         .post(
           'https://api.line.me/oauth2/v2.1/token',
