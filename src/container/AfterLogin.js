@@ -20,9 +20,9 @@ const UserInfo = () => {
     const reqBody = {
         grant_type: 'authorization_code',
         code: code,
-        redirect_uri: process.env.redirect_uri,
-        client_id: process.env.client_id,
-        client_secret: process.env.client_secret
+        redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_secret: process.env.REACT_APP_CLIENT_SECRET
     };
     const reqConfig = {
         headers: {
@@ -40,7 +40,7 @@ const UserInfo = () => {
         )
         .then((res) => {
         //   if (setPayload) setPayload(res.data);
-        console.log(res.data);
+        console.log(res);
 
         //   try {
         //     const decodedIdToken = jwt.verify(res.data.id_token, clientSecret, {
