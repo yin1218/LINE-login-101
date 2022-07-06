@@ -9,7 +9,8 @@ import axios from "axios";
 
 const UserInfo = () => {
 
-
+    // ===== useState Variable ==== //
+    const [idToken, setIdToken] = useState(null);
 
     // ==== Step 1: Get Code ==== //
     const queryParams = new URLSearchParams(window.location.search)
@@ -40,28 +41,26 @@ const UserInfo = () => {
         )
         .then((res) => {
         //   if (setPayload) setPayload(res.data);
-        console.log(res);
+        
+        console.log(res.data.id_token);
 
-        //   try {
-        //     const decodedIdToken = jwt.verify(res.data.id_token, clientSecret, {
-        //       algorithms: ['HS256'],
-        //       audience: clientID.toString(),
-        //       issuer: 'https://access.line.me',
-        //       nonce: nonce
-        //     });
-
-        //     if (setIdToken) setIdToken(decodedIdToken);
-        //   } catch (err) {
-        //     // If token is invalid.
-        //     console.log(err);
-        //   }
+          try {
+            const decodedIdToken = jwt.verify(res.data.id_token, clientSecret, {
+              algorithms: ['HS256'],
+              audience: clientID.toString(),
+              issuer: 'https://access.line.me',
+              nonce: nonce
+            });
+            setIdToken(res.data.id_token);
+            console.log(idToken);
+          } catch (err) {
+            // If token is invalid.
+            console.log(err);
+          }
         })
         .catch((err) => {
           console.log(err);
         });
-
-
-    //get id token from code
 
     //get profile information from id token
   
