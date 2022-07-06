@@ -1,11 +1,23 @@
 
+import * as React from "react";
+import { useSearchParams } from "react-router-dom";
 
 
 
 const UserInfo = () => {
+
+    let [searchParams, setSearchParams] = useSearchParams();
+
+    // let params = serializeFormQuery(event.target);
+    // setSearchParams(params);
+    const queryParams = new URLSearchParams(window.location.search)
+    const term = queryParams.get("code")
+  
+
     return (
         <>
             <h1>After LOGIN page</h1>
+            <p>Code is {term}</p>
             {/* <button
                 onClick={handleClick}
             >Click here to login</button> */}
@@ -15,14 +27,3 @@ const UserInfo = () => {
 
 
 export default UserInfo
-
-
-// let client_id = '1653311283';
-//                 let redirect_uri = 'https://piedasing.github.io/line-service-demo/';
-//                 let link = 'https://access.line.me/oauth2/v2.1/authorize?';
-//                 link += 'response_type=code';
-//                 link += '&client_id=' + client_id;
-//                 link += '&redirect_uri=' + redirect_uri;
-//                 link += '&state=login';
-//                 link += '&scope=openid%20profile';
-//                 window.location.href = link;
