@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+import {useState} from 'react'
+
+import Login from './container/beforeLogin';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+  // const [isLogin, setIsLogin] = useState(false); //目的：檢測目前是否登入
+
+  return(
+    <BrowserRouter>
+      <Routes>
+      <Route path='/' element={<Login/>}></Route>
+
+      </Routes>
+    </BrowserRouter>
+
+  )
+
+  // return (
+  //   <div className="App">
+  //     <header className="App-header">
+  //       <h1>Demo of LINE LOGIN</h1>
+  //       <button onClick={(()=>{
+  //       // 注意這邊導向的Client 以及url須在官方設定
+  //       // 因為token要在後端處理會比較好所以callback_url我是給後端的並非前端喔
+  //         window.location.replace("https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=請輸入你的ID&redirect_uri=http://localhost:3001/line/token&state=12345abcde&scope=openid%20profile&nonce=09876xyz") ;
+  //       }) }>
+  //           <h3>test</h3>
+  //         </button>
+  //     </header>
+  //   </div>
+  // );
 }
 
 export default App;
