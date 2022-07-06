@@ -2,7 +2,7 @@
 
 const handleClick = () => {
     let client_id = '1657280234';
-    let redirect_uri = 'https://piedasing.github.io/line-service-demo/';
+    let redirect_uri = 'https://line-login-starter-20220706-v3.herokuapp.com/callback';
     let link = 'https://line-login-starter-20220706-v3.herokuapp.com//authorize?';
     link += 'response_type=code';
     link += '&client_id=' + client_id;

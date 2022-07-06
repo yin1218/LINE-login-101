@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {useState} from 'react'
 
 import Login from './container/beforeLogin';
+import UserInfo from './container/AfterLogin';
 function App() {
 
 
@@ -14,6 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
       <Route path='/' element={<Login/>}></Route>
+      <Route path='/callback' element={<UserInfo/>}></Route>
 
       </Routes>
     </BrowserRouter>
