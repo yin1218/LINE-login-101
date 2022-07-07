@@ -66,7 +66,7 @@ const UserInfo = () => {
         Authorization: "Bearer " + accessToken,
     };
     axios.get(
-      'https://api.line.me/oauth2/v2.1/profile',
+      'https://api.line.me/v2/profile',
       qs.stringify(reqBody))
     .then((res) => {
       console.log(res)
