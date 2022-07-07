@@ -1,8 +1,9 @@
 
 import * as React from "react";
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import qs from 'qs';
 import axios from "axios";
+
 
 // 
 
@@ -12,57 +13,55 @@ const UserInfo = () => {
     // ===== useState Variable ==== //
     const [idToken, setIdToken] = useState(null);
 
-    // ==== Step 1: Get Code ==== //
-    const queryParams = new URLSearchParams(window.location.search)
-    //code 是一次性的！
-    const code = queryParams.get("code")
+    const getToken = () => {
+      // ==== Step 1: Get Code ==== //
+      const queryParams = new URLSearchParams(window.location.search)
+      const code = queryParams.get("code") //code can only be used one time
 
     // ==== Step 2: Get Access Token === //
     const reqBody = {
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: process.env.REACT_APP_REDIRECT_URI,
-        client_id: process.env.REACT_APP_CLIENT_ID,
-        client_secret: process.env.REACT_APP_CLIENT_SECRET
-    };
-    const reqConfig = {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+      grant_type: 'authorization_code',
+      code: code,
+      redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+      client_id: process.env.REACT_APP_CLIENT_ID,
+      client_secret: process.env.REACT_APP_CLIENT_SECRET
+  };
+  const reqConfig = {
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+      }
+  }
+
+  axios.post(
+        'https://api.line.me/oauth2/v2.1/token',
+        qs.stringify(reqBody),
+        reqConfig
+      )
+      .then((res) => {
+        try {
+          const decodedIdToken = jwt.verify(res.data.id_token, process.env.REACT_APP_CLIENT_SECRET, {
+            algorithms: ['HS256'],
+            audience: process.env.REACT_APP_CLIENT_ID.toString(),
+            issuer: 'https://access.line.me',
+            nonce: nonce
+          });
+          console.log("token is valid")
+          setIdToken(res.data.id_token);
+          console.log(idToken);
+        } catch (err) {
+          console.log(err);
         }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     }
 
-    console.log(reqBody)
+    useEffect(() => {
+      getToken();
+    }, [])
 
-    axios
-        .post(
-          'https://api.line.me/oauth2/v2.1/token',
-          qs.stringify(reqBody),
-          reqConfig
-        )
-        .then((res) => {
-        //   if (setPayload) setPayload(res.data);
-        
-        console.log(res.data.id_token);
 
-          try {
-            const decodedIdToken = jwt.verify(res.data.id_token, clientSecret, {
-              algorithms: ['HS256'],
-              audience: clientID.toString(),
-              issuer: 'https://access.line.me',
-              nonce: nonce
-            });
-            setIdToken(res.data.id_token);
-            console.log(idToken);
-          } catch (err) {
-            // If token is invalid.
-            console.log(err);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-    //get profile information from id token
   
 
     return (
