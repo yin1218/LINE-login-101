@@ -39,13 +39,6 @@ const UserInfo = () => {
       )
       .then((res) => {
         try {
-          const decodedIdToken = jwt.verify(res.data.id_token, process.env.REACT_APP_CLIENT_SECRET, {
-            algorithms: ['HS256'],
-            audience: process.env.REACT_APP_CLIENT_ID.toString(),
-            issuer: 'https://access.line.me',
-            nonce: nonce
-          });
-          console.log("token is valid")
           setIdToken(res.data.id_token);
           console.log(idToken);
         } catch (err) {
@@ -67,7 +60,6 @@ const UserInfo = () => {
     return (
         <>
             <h1>After LOGIN page</h1>
-            <p>Code is {code}</p>
         </>
     )
 }
