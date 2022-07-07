@@ -12,6 +12,7 @@ const UserInfo = () => {
 
   // ===== useState Variable ==== //
   const [idToken, setIdToken] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
 
   const getToken = () => {
       // ==== Step 1: Get Code ==== //
@@ -42,6 +43,7 @@ const UserInfo = () => {
       .then((res) => {
         try {
           setIdToken(res.data.id_token);
+          setAccessToken(res.data.access_token);
         } catch (err) {
           console.log(err);
         }
@@ -59,11 +61,12 @@ const UserInfo = () => {
 
   const getUserInfo = () => {
 
+    console.log(idToken)
     const reqBody = {
-        access_token: idToken,
+        Authorization: "Bearer " + accessToken,
     };
     axios.get(
-      'https://api.line.me/oauth2/v2.1/verify',
+      'https://api.line.me/oauth2/v2.1/userinfo',
       qs.stringify(reqBody))
     .then((res) => {
       console.log(res)
