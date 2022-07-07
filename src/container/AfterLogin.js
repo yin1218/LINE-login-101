@@ -21,7 +21,7 @@ const UserInfo = () => {
       console.log("code = ", code)
 
     // ==== Step 2: Get Access Token === //
-    const reqBody = {
+  const reqBody = {
       grant_type: 'authorization_code',
       code: code,
       redirect_uri: process.env.REACT_APP_REDIRECT_URI,
@@ -50,12 +50,15 @@ const UserInfo = () => {
       .catch((err) => {
         console.log(err);
       });
-    }
+  }
 
     useEffect(() => {
       getToken();
-    }, [idToken])
+      console.log("finish using useEffect")
+    }, [])
 
+
+    getToken();
 
   
 
