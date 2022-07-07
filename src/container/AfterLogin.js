@@ -49,7 +49,6 @@ const UserInfo = () => {
       )
       .then((res) => {
         try {
-          // setIdToken(res.data.id_token);
           setAccessToken(res.data.access_token);
         } catch (err) {
           console.log(err);
@@ -87,7 +86,7 @@ const UserInfo = () => {
   useEffect(() => {
     getToken();
     console.log("finish using useEffect");
-    getUserInfo();
+    // getUserInfo();
   }, [])
 
 
@@ -96,16 +95,21 @@ const UserInfo = () => {
   return (
       <>
           <h1>After LOGIN page</h1>
-          {/* <img 
-          >
-          </img> */}
-          <Photo
-            src={picUri} 
-            alt="profile picture"          
-          >
-          </Photo>
-          <h2> {userName}</h2>
-          <p> {statusMsg}</p>
+          {
+            accessToken !== null
+            ?
+            <>
+              <Photo
+                src={picUri} 
+                alt="profile picture"          
+              >
+              </Photo>
+              <h2> {userName}</h2>
+              <p> {statusMsg}</p>
+            </>
+            :
+            <button onClick={getUserInfo}>Click to get user Information</button>
+          }
       </>
   )
 }
