@@ -21,7 +21,7 @@ const UserInfo = () => {
   const [statusMsg, setStatusMsg] = useState('');
   const [userId, setUserId] = useState(null);
 
-  const getToken = () => {
+  const getToken = async () => {
       // ==== Step 1: Get Code ==== //
       const queryParams = new URLSearchParams(window.location.search)
       const code = queryParams.get("code") //code can only be used one time
@@ -42,7 +42,7 @@ const UserInfo = () => {
       }
   }
 
-  axios.post(
+  await axios.post(
         'https://api.line.me/oauth2/v2.1/token',
         qs.stringify(reqBody),
         reqConfig
@@ -59,15 +59,8 @@ const UserInfo = () => {
         console.log(err);
       });
   }
-  
 
-  useEffect(() => {
-    getToken();
-    console.log("finish using useEffect")
-    getUserInfo()
-  }, [])
-
-  const getUserInfo = () => {
+  const getUserInfo = async () => {
 
     console.log(accessToken)
     const reqConfig = {
@@ -75,7 +68,7 @@ const UserInfo = () => {
           'Authorization': "Bearer " + accessToken
       }
     }
-    axios.get(
+    await axios.get(
       'https://api.line.me/v2/profile',
       reqConfig)
     .then((res) => {
@@ -89,6 +82,15 @@ const UserInfo = () => {
       console.log(err);
     });
   }
+  
+
+  useEffect(() => {
+    getToken();
+    console.log("finish using useEffect");
+    getUserInfo();
+  }, [])
+
+
   
 
   return (
