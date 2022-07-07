@@ -18,6 +18,8 @@ const UserInfo = () => {
       const queryParams = new URLSearchParams(window.location.search)
       const code = queryParams.get("code") //code can only be used one time
 
+      console.log("code = ", code)
+
     // ==== Step 2: Get Access Token === //
     const reqBody = {
       grant_type: 'authorization_code',
@@ -52,7 +54,7 @@ const UserInfo = () => {
 
     useEffect(() => {
       getToken();
-    }, [])
+    }, [idToken])
 
 
   
@@ -60,6 +62,7 @@ const UserInfo = () => {
     return (
         <>
             <h1>After LOGIN page</h1>
+            <p>token = {idToken}</p>
         </>
     )
 }
