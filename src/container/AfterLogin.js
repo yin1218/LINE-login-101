@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 const Photo = styled.img`
   border-radius: 50%;
+  width: 20%;
 `
 
 
