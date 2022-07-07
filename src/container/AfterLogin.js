@@ -108,6 +108,7 @@ const UserInfo = () => {
               >
               </Photo>
               <h2> {userName}</h2>
+              <p> {userId} </p>
               <p> {statusMsg}</p>
             </>
             :
