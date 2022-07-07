@@ -3,16 +3,23 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import qs from 'qs';
 import axios from "axios";
+import styled from 'styled-components';
 
 
-// 
+const Photo = styled.img`
+  border-radius: 50%;
+`
 
 
 const UserInfo = () => {
 
   // ===== useState Variable ==== //
-  const [idToken, setIdToken] = useState(null);
+  // const [idToken, setIdToken] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
+  const [userName, setUserName] = useState('');
+  const [picUri, setPicUri] = useState('');
+  const [statusMsg, setStatusMsg] = useState('');
+  const [userId, setUserId] = useState(null);
 
   const getToken = () => {
       // ==== Step 1: Get Code ==== //
@@ -42,7 +49,7 @@ const UserInfo = () => {
       )
       .then((res) => {
         try {
-          setIdToken(res.data.id_token);
+          // setIdToken(res.data.id_token);
           setAccessToken(res.data.access_token);
         } catch (err) {
           console.log(err);
@@ -57,6 +64,7 @@ const UserInfo = () => {
   useEffect(() => {
     getToken();
     console.log("finish using useEffect")
+    getUserInfo()
   }, [])
 
   const getUserInfo = () => {
@@ -72,6 +80,10 @@ const UserInfo = () => {
       reqConfig)
     .then((res) => {
       console.log(res)
+      setUserName(res.data.displayName);
+      setPicUri(res.data.pictureUrl);
+      setStatusMsg(res.data.statusMessage);
+      setUserId(res.data.userId);
     })
     .catch((err) => {
       console.log(err);
@@ -82,8 +94,16 @@ const UserInfo = () => {
   return (
       <>
           <h1>After LOGIN page</h1>
-          <p>token = {idToken}</p>
-          <button onClick={getUserInfo}>Click to get user info</button>
+          {/* <img 
+          >
+          </img> */}
+          <Photo
+            src={picUri} 
+            alt="profile picture"          
+          >
+          </Photo>
+          <h2> {userName}</h2>
+          <p> {statusMsg}</p>
       </>
   )
 }
