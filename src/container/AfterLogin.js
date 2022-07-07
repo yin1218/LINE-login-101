@@ -20,6 +20,7 @@ const UserInfo = () => {
   const [picUri, setPicUri] = useState('');
   const [statusMsg, setStatusMsg] = useState('');
   const [userId, setUserId] = useState(null);
+  const [getData, setGetData] = useState(false)
 
   const getToken = async () => {
       // ==== Step 1: Get Code ==== //
@@ -76,6 +77,7 @@ const UserInfo = () => {
       setPicUri(res.data.pictureUrl);
       setStatusMsg(res.data.statusMessage);
       setUserId(res.data.userId);
+      setGetData(true);
     })
     .catch((err) => {
       console.log(err);
@@ -96,7 +98,7 @@ const UserInfo = () => {
       <>
           <h1>After LOGIN page</h1>
           {
-            accessToken !== null
+            getData
             ?
             <>
               <Photo
