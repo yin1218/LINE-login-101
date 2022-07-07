@@ -42,7 +42,6 @@ const UserInfo = () => {
       .then((res) => {
         try {
           setIdToken(res.data.id_token);
-          console.log(idToken);
         } catch (err) {
           console.log(err);
         }
@@ -56,10 +55,6 @@ const UserInfo = () => {
       getToken();
       console.log("finish using useEffect")
     }, [])
-
-
-    getToken();
-
   
 
     return (
