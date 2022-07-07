@@ -10,17 +10,17 @@ import axios from "axios";
 
 const UserInfo = () => {
 
-    // ===== useState Variable ==== //
-    const [idToken, setIdToken] = useState(null);
+  // ===== useState Variable ==== //
+  const [idToken, setIdToken] = useState(null);
 
-    const getToken = () => {
+  const getToken = () => {
       // ==== Step 1: Get Code ==== //
       const queryParams = new URLSearchParams(window.location.search)
       const code = queryParams.get("code") //code can only be used one time
 
       console.log("code = ", code)
 
-    // ==== Step 2: Get Access Token === //
+    // ==== Step 2: Get Access Token from Code === //
   const reqBody = {
       grant_type: 'authorization_code',
       code: code,
@@ -50,19 +50,37 @@ const UserInfo = () => {
         console.log(err);
       });
   }
-
-    useEffect(() => {
-      getToken();
-      console.log("finish using useEffect")
-    }, [])
   
 
-    return (
-        <>
-            <h1>After LOGIN page</h1>
-            <p>token = {idToken}</p>
-        </>
-    )
+  useEffect(() => {
+    getToken();
+    console.log("finish using useEffect")
+  }, [])
+
+  const getUserInfo = () => {
+
+    const reqBody = {
+        access_token: idToken,
+    };
+    axios.get(
+      'https://api.line.me/oauth2/v2.1/verify',
+      qs.stringify(reqBody))
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+  
+
+  return (
+      <>
+          <h1>After LOGIN page</h1>
+          <p>token = {idToken}</p>
+          <button onClick={getUserInfo}>Click to get user info</button>
+      </>
+  )
 }
 
 
